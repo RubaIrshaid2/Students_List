@@ -7,6 +7,7 @@
 #include <QtGlobal>
 #include <QtDebug>
 #include <QTextStream>
+#include <vector>
 
 using namespace std ;
 
@@ -35,6 +36,12 @@ void MainWindow::ReadStudentsFile()
     {
         QString line = inStream.readLine();
         qDebug() << line ;
+        QStringList data = line.split(",");
+
+        for(int i =0 ; i < data.size() ; i++)
+        {
+            qDebug() << data[i] << " ";
+        }
     }
 }
 MainWindow::~MainWindow()
