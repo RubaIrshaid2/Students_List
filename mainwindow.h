@@ -14,8 +14,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void ReadStudentsFile();
 
 private:
     Ui::MainWindow *ui;
+
+
 };
 #endif // MAINWINDOW_H
