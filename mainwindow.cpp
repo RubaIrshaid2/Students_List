@@ -8,6 +8,10 @@
 #include <QtDebug>
 #include <QTextStream>
 #include <vector>
+#include <QStringListModel>
+#include <QListView>
+#include <QTableView>
+#include <QStandardItemModel>
 
 using namespace std ;
 
@@ -38,12 +42,35 @@ void MainWindow::ReadStudentsFile()
         qDebug() << line ;
         QStringList data = line.split(",");
 
-        for(int i =0 ; i < data.size() ; i++)
-        {
-            qDebug() << data[i] << " ";
-        }
+//        for(int i = 0 ; i < data.size() ; i++)
+//        {
+//            qDebug() << data[i] << " ";
+//        }
+
+        QAbstractItemModel *model = new QStringListModel(data) ;
+        //QAbstractItemModel *model = new QStandardItemModel(4,1,this);
+
+
+
+//        for(int i = 0 ;i < 4 ; i++)
+//        {
+//            QModelIndex index = model->index(i,0,QModelIndex());
+//            model->setData(index , i);
+//        }
+
+
+        QTableView *firstTableView = new QTableView;
+        firstTableView->setModel(model);
+        mydelegate = new SpinBoxDelegate();
+        firstTableView->setItemDelegate(mydelegate);
+        firstTableView->show();
+
     }
+
+
 }
+
+
 MainWindow::~MainWindow()
 {
     delete ui;

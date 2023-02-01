@@ -20,6 +20,10 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         dataFiles.qrc
+        SpinBoxDelegate.cpp
+        SpinBoxDelegate.h
+        treeItem.cpp
+        TreeItem.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
