@@ -24,6 +24,8 @@ set(PROJECT_SOURCES
         SpinBoxDelegate.h
         treeItem.cpp
         TreeItem.h
+        TreeModel.h
+        treeModel.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

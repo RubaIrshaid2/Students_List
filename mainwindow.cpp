@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "treemodel.h"
 #include <QHeaderView>
 #include <QFile>
 #include <QMessageBox>
@@ -12,6 +13,7 @@
 #include <QListView>
 #include <QTableView>
 #include <QStandardItemModel>
+#include <vector>
 
 using namespace std ;
 
@@ -34,21 +36,39 @@ void MainWindow::ReadStudentsFile()
         return ;
     }
 
+    TreeModel *tm  = new TreeModel("" , NULL);
+    ui->treeView->setModel(tm);
+
     QTextStream inStream(&file);
 
     while(!inStream.atEnd())
     {
         QString line = inStream.readLine();
         qDebug() << line ;
+
         QStringList data = line.split(",");
+        QVector <QVariant> dd ;
+
+        for(int i =0 ; i < data.size() ; i++)
+            dd.append(data[i]);
+        TreeItem *ti = new TreeItem( dd , tm->rootItem);
+
+        tm->rootItem->appendChild(ti);
+
+    }
+}
+
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
 
 //        for(int i = 0 ; i < data.size() ; i++)
 //        {
 //            qDebug() << data[i] << " ";
 //        }
-
-        QAbstractItemModel *model = new QStringListModel(data) ;
-        //QAbstractItemModel *model = new QStandardItemModel(4,1,this);
 
 
 
@@ -58,20 +78,8 @@ void MainWindow::ReadStudentsFile()
 //            model->setData(index , i);
 //        }
 
-
-        QTableView *firstTableView = new QTableView;
-        firstTableView->setModel(model);
-        mydelegate = new SpinBoxDelegate();
-        firstTableView->setItemDelegate(mydelegate);
-        firstTableView->show();
-
-    }
-
-
-}
-
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+//QTableView *firstTableView = new QTableView;
+//firstTableView->setModel(model);
+//mydelegate = new SpinBoxDelegate();
+//firstTableView->setItemDelegate(mydelegate);
+//firstTableView->show();
